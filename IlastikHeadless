@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#ilastik headless will not run if any of the folder paths contain spaces!
+
+#Enter the path to where ilastik application is stored (Most of the time it will be in the applications folder)
+
+ilastik_location='/Applications'
+
+#Input the location of your ilastik pixel classification project
+
+ilastik_project_location='/Users/joshuahess/Desktop/TestingIlastik/MyProject.ilp'
+
+#Input the location of the folders that contain the images to be batch processed
+
+hdf5_locations=('/Users/joshuahess/Desktop/TestingIlastik/')
+
+#ome_locations=('/Users/joshuahess/Desktop/TestingIlastik/' '/Users/joshuahess/Desktop/#IMC_MSI_Registration/cropped_ome_images')
+
+#Append each hdf5 location folder in order to extract all elements that end with .hdf5
+
+hdf5_input=("${hdf5_locations[@]/%//*crop0.hdf5}")
+
+#The following line of code will load headless ilastik and batch process each image that ends with crop0.hdf5 in the hdf5 location folders list
+
+${ilastik_location}/ilastik-1.3.2rc2-OSX.app/Contents/ilastik-release/run_ilastik.sh --headless --project=${ilastik_project_location} ${hdf5_input[@]}
+
