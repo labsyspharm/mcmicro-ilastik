@@ -20,4 +20,4 @@ hdf5_locations=$3
 
 #The following line of code will load headless ilastik and batch process each image that ends with crop0.hdf5 in the hdf5 location folders list
 
-${ilastik_location}/run_ilastik --headless --project=${ilastik_project_location} ${hdf5_locations}
+${ilastik_location}/run_ilastik.sh --headless --project=${ilastik_project_location} ${hdf5_locations}
