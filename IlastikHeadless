@@ -4,17 +4,15 @@
 
 #Enter the path to where ilastik application is stored (Most of the time it will be in the applications folder)
 
-ilastik_location='/Applications'
+ilastik_location='/n/groups/lsp/ilastik/ilastik-1.3.3post2-Linux'
 
 #Input the location of your ilastik pixel classification project
 
-ilastik_project_location='/Users/joshuahess/Desktop/TestingIlastik/MyProject.ilp'
+ilastik_project_location='$1'
 
 #Input the location of the folders that contain the images to be batch processed
 
-hdf5_locations=('/Users/joshuahess/Desktop/TestingIlastik/')
-
-#ome_locations=('/Users/joshuahess/Desktop/TestingIlastik/' '/Users/joshuahess/Desktop/#IMC_MSI_Registration/cropped_ome_images')
+hdf5_locations='$2'
 
 #Append each hdf5 location folder in order to extract all elements that end with .hdf5
 
@@ -22,5 +20,5 @@ hdf5_input=("${hdf5_locations[@]/%//*crop0.hdf5}")
 
 #The following line of code will load headless ilastik and batch process each image that ends with crop0.hdf5 in the hdf5 location folders list
 
-${ilastik_location}/ilastik-1.3.2rc2-OSX.app/Contents/ilastik-release/run_ilastik.sh --headless --project=${ilastik_project_location} ${hdf5_input[@]}
+${ilastik_location}/run_ilastik.sh --headless --project=${ilastik_project_location} ${hdf5_input[@]}
 
