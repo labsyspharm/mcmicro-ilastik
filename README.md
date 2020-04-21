@@ -1,5 +1,11 @@
-# Preparation of ome.tif images for Ilastik
-MCMICRO module for processing large images with Ilastik
+# Preparation and processing of ome.tif images with Ilastik
+MCMICRO module for training and processing large images with Ilastik
+
+# Headless Ilastik execution once the classifier is ready
+Example:
+./IlastikHeadless.sh /n/groups/lsp/ilastik/ilastik-1.3.3post2-Linux/ /home/ds230/files_ilastik_test/exemplar_001.ilp /home/ds230/files_ilastik_test/exemplar-001.hdf5
+
+
 
 **CommandIlastikPrepOME.py**
 Script for preparing ome.tif images to be accessed by Ilastik. Exports hdf5 formats.
@@ -20,7 +26,3 @@ python CommandIlastikPrepOME.py --input /Users/joshuahess/Desktop/VV_40c.ome.tif
 * num_channels: Number of channels to export per image (Ex: 40 corresponds to a 40 channel ome.tif image)
 
 * ring_mask: include if you have a ring mask in the same directory to use for reducing size of hdf5 image. do not include if not
-
-# Headless Ilastik execution once the classifier is ready
-For example:
-./IlastikHeadless.sh /n/groups/lsp/ilastik/ilastik-1.3.3post2-Linux/ /home/ds230/files_ilastik_test/exemplar_001.ilp /home/ds230/files_ilastik_test/exemplar-001.hdf5
