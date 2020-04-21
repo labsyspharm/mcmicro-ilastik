@@ -1,10 +1,20 @@
-# Preparation of ome.tif images for Ilastik
-MCMICRO module for processing large images with Ilastik
+# Preparation and processing of ome.tif images with Ilastik
+MCMICRO module for training and processing large images with Ilastik
 
-**CommandIlastikPrepOME.py**
+## CommandIlastikPrepOME.py
+
 Script for preparing ome.tif images to be accessed by Ilastik. Exports hdf5 formats.
 
-Command line execution example:
+**Headless Ilastik execution once the classifier is ready**
+
+python CommandIlastikPrepOME.py --input *.ome.tif --output prob_maps/ilastik/
+
+Afterwards run execute:
+
+./IlastikHeadless.sh /n/groups/lsp/ilastik/ilastik-1.3.3post2-Linux/ classifiers/exemplar_001.ilp prob_maps/ilastik/
+
+**For training follow these steps**
+
 python CommandIlastikPrepOME.py --input /Users/joshuahess/Desktop/VV_40c.ome.tif /Users/joshuahess/Desktop/VV_40c_test.ome.tif --output /Users/joshuahess/Desktop/TestingIlastik --nonzero_fraction 0.5 --nuclei_index 1 --crop --crop_size 400 400 --num_channels 3 --ring_mask
 
 * input: Path to images (Ex: ./my_image.ome.tif ./my_image2.ome.tif)
