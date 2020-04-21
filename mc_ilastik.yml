@@ -5,9 +5,10 @@ dependencies:
   - pandas
   - numpy
   - pathlib
-  - tifffile
-  - pathlib
-  - os
-  - random
-  - scipy.io
-  - math
+  - pip
+  - scipy
+  - pip:
+    - tifffile
+    - os
+    - random
+    - math
