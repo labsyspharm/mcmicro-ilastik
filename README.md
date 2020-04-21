@@ -1,13 +1,13 @@
 # Preparation and processing of ome.tif images with Ilastik
 MCMICRO module for training and processing large images with Ilastik
 
-# Headless Ilastik execution once the classifier is ready
+## Headless Ilastik execution once the classifier is ready
 Example:
 ./IlastikHeadless.sh /n/groups/lsp/ilastik/ilastik-1.3.3post2-Linux/ /home/ds230/files_ilastik_test/exemplar_001.ilp /home/ds230/files_ilastik_test/exemplar-001.hdf5
 
 
 
-**CommandIlastikPrepOME.py**
+## CommandIlastikPrepOME.py
 Script for preparing ome.tif images to be accessed by Ilastik. Exports hdf5 formats.
 
 Command line execution example:
