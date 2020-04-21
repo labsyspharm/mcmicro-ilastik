@@ -1,0 +1,13 @@
+name: mc_ilastik
+dependencies:
+  - scikit-image 
+  - h5py
+  - pandas
+  - numpy
+  - pathlib
+  - tifffile
+  - pathlib
+  - os
+  - random
+  - scipy.io
+  - math
