@@ -2,9 +2,11 @@
 MCMICRO module for training and processing large images with Ilastik
 
 ## CommandIlastikPrepOME.py
+
 Script for preparing ome.tif images to be accessed by Ilastik. Exports hdf5 formats.
 
 **Headless Ilastik execution once the classifier is ready**
+
 python CommandIlastikPrepOME.py --input *.ome.tif --output prob_maps/ilastik/
 
 Afterwards run execute:
