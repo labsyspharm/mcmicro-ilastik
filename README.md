@@ -7,11 +7,16 @@ Script for preparing ome.tif images to be accessed by Ilastik. Exports hdf5 form
 
 **Headless Ilastik execution once the classifier is ready**
 
-python CommandIlastikPrepOME.py --input *.ome.tif --output prob_maps/ilastik/
+```
+mkdir prob_maps/ilastik
+python CommandIlastikPrepOME.py --input exemplar-001.ome.tif --output prob_maps/ilastik/ --num_channels 12
+```
 
-Afterwards run execute:
+To apply an existing classifier to an hdf5 file created in the previous step:
 
-./IlastikHeadless.sh /n/groups/lsp/ilastik/ilastik-1.3.3post2-Linux/ classifiers/exemplar_001.ilp prob_maps/ilastik/
+```
+/path/to/ilastik/run_ilastik.sh --headless --project=classifiers/exemplar_001.ilp prob_maps/ilastik/exemplar-001.hdf5
+```
 
 **For training follow these steps**
 
