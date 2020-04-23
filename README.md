@@ -1,5 +1,5 @@
 # Preparation and processing of ome.tif images with Ilastik
-MCMICRO module for training and processing large images with Ilastik
+mcmicro module for training and processing large images with Ilastik
 
 ## CommandIlastikPrepOME.py
 
