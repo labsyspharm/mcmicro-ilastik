@@ -17,12 +17,14 @@ def ParseInputOME():
    parser.add_argument('--num_channels',type=int)
    parser.add_argument('--ring_mask', action='store_true',default = False)
    parser.add_argument('--no-ring_mask', dest='ring_mask', action='store_false')
+   parser.add_argument('--crop_amount', type=int)
+
    args = parser.parse_args()
    #Create a dictionary object to pass to the next function
    dict = {'input': args.input, 'output': args.output, 'crop': args.crop,\
       'crop_size':args.crop_size,'nonzero_fraction':args.nonzero_fraction,\
          'nuclei_index':args.nuclei_index, 'num_channels':args.num_channels,\
-         'ring_mask':args.ring_mask}
+         'ring_mask':args.ring_mask, 'crop_amount':args.crop_amount}
    #Print the dictionary object
    print(dict)
    #Return the dictionary

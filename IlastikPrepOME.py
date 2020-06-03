@@ -14,7 +14,7 @@ import math
 
 
 
-def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask):
+def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask,crop_amount):
     """Function for exporting a large ome.tiff image as an hdf5 image for
     training ilastik random forest pixel classifier for cell segmentation"""
 
@@ -94,7 +94,7 @@ def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num
         indices = {}
         count = 0
         thresh = filters.threshold_otsu(im_nuc[:,:,:])
-        while count < 2:
+        while count < crop_amount:
             #Get random height value that falls within crop range of the edges
             extension_h = crop_size[0]//2
             h = random.randint(extension_h,im_nuc.shape[1]-extension_h)
@@ -125,7 +125,7 @@ def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num
         summary.close()
 
 
-def MultiIlastikOMEPrep(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask):
+def MultiIlastikOMEPrep(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask,crop_amount):
     """Function for iterating over a list of files and output locations to
     export large ome.tiff images in the correct hdf5 image format for ilastik
     random forest pixel classification and batch processing"""
@@ -135,7 +135,7 @@ def MultiIlastikOMEPrep(input,output,crop,crop_size,nonzero_fraction,nuclei_inde
         #Iterate through the images and export to the same location
         for im_name in input:
             #Run the IlastikPrepOME function for this image
-            IlastikPrepOME(im_name,output[0],crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask)
+            IlastikPrepOME(im_name,output[0],crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask,crop_amount)
     #Alternatively, iterate over output directories
     else:
         #Check to make sure the output directories and image paths are equal in length
@@ -145,4 +145,4 @@ def MultiIlastikOMEPrep(input,output,crop,crop_size,nonzero_fraction,nuclei_inde
             #Iterate through images and output directories
             for i in range(len(input)):
                 #Run the IlastikPrepOME function for this image and output directory
-                IlastikPrepOME(input[i],output[i],crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask)
+                IlastikPrepOME(input[i],output[i],crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask,crop_amount)
