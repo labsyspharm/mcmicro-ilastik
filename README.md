@@ -20,7 +20,7 @@ To apply an existing classifier to an hdf5 file created in the previous step:
 
 **For training follow these steps**
 
-python CommandIlastikPrepOME.py --input /Users/joshuahess/Desktop/VV_40c.ome.tif /Users/joshuahess/Desktop/VV_40c_test.ome.tif --output /Users/joshuahess/Desktop/TestingIlastik --nonzero_fraction 0.5 --nuclei_index 1 --crop --crop_size 400 400 --num_channels 3 --ring_mask
+python CommandIlastikPrepOME.py --input /Users/joshuahess/Desktop/VV_40c.ome.tif /Users/joshuahess/Desktop/VV_40c_test.ome.tif --output /Users/joshuahess/Desktop/TestingIlastik --nonzero_fraction 0.5 --nuclei_index 1 --crop --crop_size 400 400 --num_channels 3 --ring_mask --crop_amount 2
 
 * input: Path to images (Ex: ./my_image.ome.tif ./my_image2.ome.tif)
 
@@ -35,3 +35,5 @@ python CommandIlastikPrepOME.py --input /Users/joshuahess/Desktop/VV_40c.ome.tif
 * num_channels: Number of channels to export per image (Ex: 40 corresponds to a 40 channel ome.tif image)
 
 * ring_mask: include if you have a ring mask in the same directory to use for reducing size of hdf5 image. do not include if not
+
+* crop_amount: Number of crops you would like to extract
