@@ -54,7 +54,7 @@ def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num
             #Swap the axes to be in the order zyxc for ilastik
             im = np.swapaxes(im,0,2)
         #Swap the axes to be in the order zyxc for ilastik
-        im = np.swapaxes(im,0,1)
+        #im = np.swapaxes(im,0,1)
         #Check if step size is 1 or two (again, if 1, then no color channel)
         if (step!=1):
             #Reshape the array
