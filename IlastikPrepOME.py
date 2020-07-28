@@ -61,7 +61,7 @@ def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num
             im = im.reshape((1,im.shape[0],im.shape[1],im.shape[2]))
         else:
             #Add a color axis when reshaping instead
-            im = im.reshape((1,im.shape[0],im.shape[1],1))
+            im = im.reshape((1,im.shape[1],im.shape[0],1))
         #Check to see if ring mask is being applied
         if ring_mask:
             #Crop the region
