@@ -13,7 +13,6 @@ import scipy.io
 import math
 
 
-
 def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask,crop_amount):
     """Function for exporting a large ome.tiff image as an hdf5 image for
     training ilastik random forest pixel classifier for cell segmentation"""
@@ -47,14 +46,15 @@ def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num
     #Set the index
     idx = 0
     for i in range(int(num_channels/step)):
+        i=0
         #Convert the tifffile object to array
         im = tif.asarray(series=0,key=range(idx,idx+step))
         #Check to see what step size is (if step is 1, tiffile will not read color channel, only width and height)
         if (step!=1):
             #Swap the axes to be in the order zyxc for ilastik
             im = np.swapaxes(im,0,2)
-        #Swap the axes to be in the order zyxc for ilastik
-        #im = np.swapaxes(im,0,1)
+            #Swap the axes to be in the order zyxc for ilastik
+            im = np.swapaxes(im,0,1)
         #Check if step size is 1 or two (again, if 1, then no color channel)
         if (step!=1):
             #Reshape the array
