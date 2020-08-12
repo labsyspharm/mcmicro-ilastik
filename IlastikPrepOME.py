@@ -13,8 +13,7 @@ import scipy.io
 import math
 
 
-
-def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask,crop_amount):
+def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num_channels,channelIDs,ring_mask,crop_amount):
     """Function for exporting a large ome.tiff image as an hdf5 image for
     training ilastik random forest pixel classifier for cell segmentation"""
 
@@ -35,6 +34,28 @@ def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num
         min_w, max_w = math.floor(abs(mat['nodes'][:,0]).min()), math.ceil(abs(mat['nodes'][:,0]).max())
         min_h, max_h = math.floor(abs(mat['nodes'][:,1]).min()), math.ceil(abs(mat['nodes'][:,1]).max())
 
+    #Check to see if the num_channels exists
+    if num_channels == None and channelIDs == None:
+        #raise an error
+        raise ValueError('--num_channels and --channelIDs are not specified')
+
+    #Otherwise continue
+    else:
+        #Condition 1
+        if num_channels == None and channelIDs != None:
+            #Set number of channels to length of channel IDs
+            num_channels = len(channelIDs)
+        #Check if number of channels and channelIDs agree
+        elif num_channels != None and channelIDs == None:
+            #Set channelIDs to be first n channels for num_channels
+            channelIDs = range(0,num_channels)
+        #infer the number of channels give the channel IDs
+        else:
+            #Check that the two agree
+            if num_channels != len(channelIDs):
+                #raise error
+                raise ValueError('--num_channels and length of --channelIDs do not agree')
+
     #Check if the number of channels is even or odd
     if (num_channels % 2) == 0:
         step = 2
@@ -44,11 +65,15 @@ def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num
     #Read the tif image - Reads the image as cyx
     print("Reading "+im_name.stem+"...")
     tif = tifffile.TiffFile(im_name)
-    #Set the index
+    #Set the index for the loop
     idx = 0
+    #Add counter for channel index
+    chan_idx = 0
     for i in range(int(num_channels/step)):
+        #Get the channel indices based on the step
+        chan_idx = channelIDs[idx:idx+step]
         #Convert the tifffile object to array
-        im = tif.asarray(series=0,key=range(idx,idx+step))
+        im = tif.asarray(series=0,key=chan_idx)
         #Check to see what step size is (if step is 1, tiffile will not read color channel, only width and height)
         if (step!=1):
             #Swap the axes to be in the order zyxc for ilastik
@@ -87,6 +112,8 @@ def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num
 
     #Optional to crop out regions for ilastik training
     if crop:
+        #Get the index of nuclei in channelIDs
+        nuclei_index = channelIDs.index(nuclei_index)
         #Run through each cropping iteration
         full_h5 = h5py.File(pathlib.Path(os.path.join(output,h5_name)), 'r')
         im_nuc = full_h5[str(im_stem)][:,:,:,nuclei_index]
@@ -125,7 +152,7 @@ def IlastikPrepOME(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num
         summary.close()
 
 
-def MultiIlastikOMEPrep(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask,crop_amount):
+def MultiIlastikOMEPrep(input,output,crop,crop_size,nonzero_fraction,nuclei_index,num_channels,channelIDs,ring_mask,crop_amount):
     """Function for iterating over a list of files and output locations to
     export large ome.tiff images in the correct hdf5 image format for ilastik
     random forest pixel classification and batch processing"""
@@ -135,7 +162,7 @@ def MultiIlastikOMEPrep(input,output,crop,crop_size,nonzero_fraction,nuclei_inde
         #Iterate through the images and export to the same location
         for im_name in input:
             #Run the IlastikPrepOME function for this image
-            IlastikPrepOME(im_name,output[0],crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask,crop_amount)
+            IlastikPrepOME(im_name,output[0],crop,crop_size,nonzero_fraction,nuclei_index,num_channels,channelIDs,ring_mask,crop_amount)
     #Alternatively, iterate over output directories
     else:
         #Check to make sure the output directories and image paths are equal in length
@@ -145,4 +172,4 @@ def MultiIlastikOMEPrep(input,output,crop,crop_size,nonzero_fraction,nuclei_inde
             #Iterate through images and output directories
             for i in range(len(input)):
                 #Run the IlastikPrepOME function for this image and output directory
-                IlastikPrepOME(input[i],output[i],crop,crop_size,nonzero_fraction,nuclei_index,num_channels,ring_mask,crop_amount)
+                IlastikPrepOME(input[i],output[i],crop,crop_size,nonzero_fraction,nuclei_index,num_channels,channelIDs,ring_mask,crop_amount)
