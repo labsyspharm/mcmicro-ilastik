@@ -19,7 +19,7 @@ To apply an existing classifier to an hdf5 file created in the previous step:
 ```
 
 **For training follow these steps**
-| Parameter | Default / e.g., | Description |
+| Parameter | Default | Description |
 | --- | --- | --- |
 | `--input` |`None` | Path to images (Ex: ./my_image.ome.tif ./my_image2.ome.tif)|
 | `--output` |`None` | Path to output directory. Either single directory or number of directories=to number of images (Ex: ./my_outdir)|
