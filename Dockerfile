@@ -2,7 +2,7 @@ FROM python:3.6
 
 RUN pip install scikit-image h5py pandas numpy pathlib tifffile pathlib scipy
 
-ARG ilastik_binary=ilastik-1.3.3post2-Linux.tar.bz2
+ARG ilastik_binary=ilastik-1.4.0b27-Linux.tar.bz2
 
 ADD http://files.ilastik.org/$ilastik_binary /
 
