@@ -16,7 +16,7 @@ if __name__ == '__main__':
     os.system(cmd1)
 
     # Construct a run_ilastik.sh call
-    cmd2 = "/ilastik-release/run_ilastik.sh --headless --project " + \
+    cmd2 = "/ilastik-release/run_ilastik.sh --headless --export_dtype uint8 --project " + \
         str(args.model) + " *.hdf5"
     print(cmd2)
     os.system(cmd2)
